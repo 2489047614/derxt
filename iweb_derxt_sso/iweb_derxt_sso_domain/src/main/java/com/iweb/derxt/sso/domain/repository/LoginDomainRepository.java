@@ -1,15 +1,14 @@
 package com.iweb.derxt.sso.domain.repository;
 
 import com.iweb.derxt.common.constants.RedisKey;
-import com.iweb.derxt.common.model.CallResult;
 import com.iweb.derxt.common.wx.config.WxOpenConfig;
 import com.iweb.derxt.sso.domain.LoginDomain;
+import com.iweb.derxt.sso.domain.UserDomain;
 import com.iweb.derxt.sso.model.params.login.LoginParam;
+import com.iweb.derxt.sso.model.params.user.UserParam;
 import me.chanjar.weixin.mp.api.WxMpService;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -18,12 +17,13 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LoginDomainRepository {
     @Autowired
-    private WxMpService wxMpService;
+    public WxMpService wxMpService;
     @Autowired
-    private WxOpenConfig wxOpenConfig;
+    public WxOpenConfig wxOpenConfig;
     @Autowired
-    private RedisTemplate redisTemplate;
-
+    public StringRedisTemplate redisTemplate;
+    @Autowired
+    public UserDomainRepository userDomainRepository;
     public LoginDomain createLoginDomain(LoginParam loginParam) {
         return new LoginDomain(this,loginParam);
     }
@@ -39,5 +39,13 @@ public class LoginDomainRepository {
         String url = wxMpService.buildQrConnectUrl(wxOpenConfig.getRedirectUrl(), wxOpenConfig.getScope(), state);
 
         return url;
+    }
+
+    public boolean checkWxLoginCallBackBiz(String state){
+        return redisTemplate.hasKey(RedisKey.WX_STATE_KEY+state);
+    }
+
+    public UserDomain createUserDomain(UserParam userParam){
+        return userDomainRepository.createUserDomain(userParam);
     }
 }

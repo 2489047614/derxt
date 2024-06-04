@@ -14,6 +14,7 @@ public enum BusinessCodeEnum {
     CHECK_BIZ_ERROR_MOBILE_USED(1000000003,"检查业务电话号码已被使用"),
     //login
     NO_LOGIN(1000000200,"未登录"),
+    NO_TOKEN(1000000200,"登录已经过期"),
     //topic
     TOPIC_RAND_ERROR(1011004101,"没有习题了"),
     TOPIC_NOT_EXIST(1011004102,"topic 不存在"),
@@ -27,12 +28,11 @@ public enum BusinessCodeEnum {
     COURSE_NOT_EXIST(1021004102,"course not exist"),
     //wx
     LOGIN_WX_NO_LEGAL(1031001101,"不合法的请求"),
-    LOGIN_IWX_NOT_USER_INFO(1031001102,"无法获取用户信息"),
+    LOGIN_WX_NOT_USER_INFO(1031001102,"无法获取用户信息"),
     //wx pay
     PAY_ORDER_CREATE_FAIL(1041001101,"创建订单失败"),
     ORDER_NOT_EXIST(1041001102,"订单号不存在"),
-    ORDER_NOT_CANCEL(1041001103,"已付款的订单不能取消"),
-    ;
+    ORDER_NOT_CANCEL(1041001103,"已付款的订单不能取消");
     private static final Map<Integer, BusinessCodeEnum> codeMap =
             new HashMap<Integer,BusinessCodeEnum>();
 

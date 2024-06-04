@@ -25,5 +25,10 @@
         <groupId>org.apache.tomcat.embed</groupId>
         <artifactId>tomcat-embed-core</artifactId>
     </dependency>
+    <dependency>
+        <groupId>com.iweb</groupId>
+        <artifactId>iweb_derxt_sso_dao</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
 </dependencies>
 </project>
